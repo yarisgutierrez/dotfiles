@@ -1,0 +1,85 @@
+!----------
+! XFT Settings
+
+Xft.dpi:			        96
+Xft.antialias:			    true
+Xft.hinting:			    true
+Xft.hintstyle:			    hintslight
+xft.rgba:			        rgb
+
+!----------
+! URXVT - Settings
+
+URxvt*depth:			    32
+URxvt*geometry:			    100x30
+URxvt.scrollBar:		    false
+URxvt*font:			        xft:Ubuntu Mono derivative Powerline:pixelsize=14
+URxvt*boldFont:			    xft:Ubuntu Mono derivative Powerline:style=bold:pixelsize=14
+URxvt*italicFont:		    xft:Ubuntu Mono derivative Powerline:style=italic:pixelsize=14
+URxvt*boldItalicFont:	    xft:Ubuntu Mono derivative Powerline:style=bolditalic:pixelsize=14
+URxvt.termName:			    rxvt-unicode-256color
+URxvt.imLocale:			    en_US.UTF-8
+URxvt.loginShell:		    true
+URxvt.saveLines:		    3000
+URxvt.internalBorder:	    30
+URxvt.cursorBlink:		    false
+URxvt*cursorUnderline:	    false
+URxvt*borderless:		    false
+URxvt.underlineURLs:	    true
+URxvt.url-select.launcher:	/usr/bin/iceweasel
+URxvt.url-select.underline:	true
+URxvt.modifier:			    ctrl
+URxvt.perl-ext-common:		default,tabbed,url-select,keyboard-select,vtwheel
+URxvt.tabbed.tabbar-fg:		4
+URxvt.tabbed.tabbar-bg:		0
+URxvt.tabbed.tab-fg:		15
+URxvt.tabbed.tab-bg:		4
+
+! Gotham Colorscheme
+*.foreground:               #98d1ce
+*.background:               #0a0f14
+*.cursorColor:              #98d1ce
+
+*.color0:                   #0a0f14
+*.color8:                   #10151b
+
+*.color1:                   #c33027
+*.color9:                   #d26939
+
+*.color2:                   #26a98b
+*.color10:                  #081f2d
+
+*.color3:                   #edb54b
+*.color11:                  #245361
+
+*.color4:                   #195465
+*.color12:                  #093748
+
+*.color5:                   #4e5165
+*.color13:                  #888ba5
+
+*.color6:                   #33859d
+*.color14:                  #599caa
+
+*.color7:                   #98d1ce
+*.color15:                  #d3ebe9
+
+! Dracula Xresources palette
+!*.foreground: 			#f8f8f2
+!*.background: 			#282a36
+!*.color0:			    #000000
+!*.color8:			    #4d4d4d
+!*.color1:			    #ff5555
+!*.color9:			    #ff6e67
+!*.color2:			    #50fa7b
+!*.color10:			    #5af78e
+!*.color3:			    #f1fa8c
+!*.color11:			    #f4f99d
+!*.color4:			    #caa9fa
+!*.color12:			    #caa9fa
+!*.color5:			    #ff79c6
+!*.color13:			    #ff92d0
+!*.color6:			    #8be9fd
+!*.color14:			    #9aedfe
+!*.color7:			    #bfbfbf
+!*.color15:			    #e6e6e6
