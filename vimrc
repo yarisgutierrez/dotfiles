@@ -144,15 +144,15 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " AutoGroups
 augroup configgroup
-autocmd!
-autocmd VimEnter * highlight clear SignColumn
-autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>StripTrailingWhitespaces()
-autocmd BufEnter *cls setlocal filetype=java
-autocmd BufEnter *.zsh-theme setlocal filetype=zsh
-autocmd BufEnter Makefile setlocal noexpandtab
-autocmd BufEnter *.sh setlocal tabstop=2
-autocmd BufEnter *.sh setlocal shiftwidth=2
-autocmd BufEnter *.sh setlocal softtabstop=2
+    autocmd!
+    autocmd VimEnter * highlight clear SignColumn
+    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>StripTrailingWhitespaces()
+    autocmd BufEnter *cls setlocal filetype=java
+    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+    autocmd BufEnter Makefile setlocal noexpandtab
+    autocmd BufEnter *.sh setlocal tabstop=2
+    autocmd BufEnter *.sh setlocal shiftwidth=2
+    autocmd BufEnter *.sh setlocal softtabstop=2
 augroup END
 
 " Backups
@@ -205,6 +205,6 @@ let python_highlight_all=1
 
 " Full Stack
 au BufNewFile, BufRead *.js, *.html, *.css
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2 |
+            \ set tabstop=2 |
+            \ set softtabstop=2 |
+            \ set shiftwidth=2 |
