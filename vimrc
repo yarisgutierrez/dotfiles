@@ -35,7 +35,7 @@ filetype plugin indent on
 " Colors
 syntax enable
 set t_Co=256
-colorscheme tomorrow-night-bright
+colorscheme Tomorrow-Night-Bright
 
 " Misc
 set updatetime=250
@@ -43,7 +43,7 @@ set encoding=utf-8
 set ttyfast
 set backspace=indent,eol,start
 set switchbuf+=usetab,newtab
-set mouse=1
+set mouse=a
 set clipboard=unnamed
 
 
