@@ -24,9 +24,9 @@ Plugin 'ctrlpvim/ctrlp.vim'                 " Code and file fuzzy finder
 Plugin 'Townk/vim-autoclose'                " Autoclose
 Plugin 'tpope/vim-surround'                 " Handle surround characters such as ''
 Plugin 'nvie/vim-flake8'                    " Check syntax and style through Flake8
-Plugin 'davidhalter/jedi-vim'               " Python autocompletion
 Plugin 'hynek/vim-python-pep8-indent'       " Modify vim indentation to comply to PEP8
 Plugin 'itchyny/lightline.vim'              " Status line
+Plugin 'sheerun/vim-polyglot'
 
 call vundle#end()
 
