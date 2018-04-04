@@ -27,6 +27,8 @@ Plugin 'nvie/vim-flake8'                    " Check syntax and style through Fla
 Plugin 'hynek/vim-python-pep8-indent'       " Modify vim indentation to comply to PEP8
 Plugin 'itchyny/lightline.vim'              " Status line
 Plugin 'sheerun/vim-polyglot'
+Plugin 'ayu-theme/ayu-vim'
+Plugin 'Yggdroot/indentLine'
 
 call vundle#end()
 
@@ -35,7 +37,9 @@ filetype plugin indent on
 " Colors
 syntax enable
 set t_Co=256
-colorscheme Tomorrow-Night-Bright
+set termguicolors
+let ayucolor="mirage"
+colorscheme ayu
 
 " Misc
 set updatetime=250
@@ -211,6 +215,7 @@ endfunction
 
 "" Lightline settings
 let g:lightline = {
+            \ 'colorscheme': 'ayu',
             \ 'active': {
             \   'left':[ [ 'mode', 'paste' ],
             \            [ 'gitbranch', 'readonly', 'filename', 'modified' ]
