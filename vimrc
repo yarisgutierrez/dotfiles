@@ -20,15 +20,14 @@ Plugin 'scrooloose/nerdtree'                " Better file browser
 Plugin 'tpope/vim-fugitive'                 " Git integration
 Plugin 'airblade/vim-gitgutter'
 Plugin 'majutsushi/tagbar'                  " Class/module browser
-Plugin 'ctrlpvim/ctrlp.vim'                 " Code and file fuzzy finder
 Plugin 'Townk/vim-autoclose'                " Autoclose
 Plugin 'tpope/vim-surround'                 " Handle surround characters such as ''
 Plugin 'nvie/vim-flake8'                    " Check syntax and style through Flake8
 Plugin 'hynek/vim-python-pep8-indent'       " Modify vim indentation to comply to PEP8
 Plugin 'itchyny/lightline.vim'              " Status line
 Plugin 'sheerun/vim-polyglot'
-Plugin 'ayu-theme/ayu-vim'
 Plugin 'Yggdroot/indentLine'
+Plugin 'davidhalter/jedi'
 
 call vundle#end()
 
@@ -48,8 +47,7 @@ let &t_ZR="\e[23m"
 syntax enable
 set t_Co=256
 set termguicolors
-let ayucolor="mirage"
-colorscheme ayu
+colorscheme koehler
 
 " Misc
 set updatetime=250
@@ -84,17 +82,6 @@ set noshowmode
 
 set showmatch           " Highlight matching paranthesis
 
-" GUI
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set guioptions-=m
-    set t_Co=256
-    colorscheme Tomorrow-Night-Bright
-    set guitablabel=%M\ %t
-    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
-    set lines=50 columns=100
-endif
 
 " Searching
 set ignorecase          " Ignore case when searching
@@ -116,11 +103,9 @@ nnoremap <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader><space> :noh<CR>
 
-" CtrlP
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
+" Switch Tabs
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
 
 " NERDTree
 let NERDTreeIgnore = ['\.pyc$', 'build', 'venv', 'egg', 'egg-info/', 'dist', 'docs']
@@ -223,9 +208,9 @@ function! LightlineLinterOK() abort
   return l:counts.total == 0 ? '✓' : ''
 endfunction
 
-"" Lightline settings
+" Lightline settings
 let g:lightline = {
-            \ 'colorscheme': 'ayu',
+            \ 'colorscheme': 'default',
             \ 'active': {
             \   'left':[ [ 'mode', 'paste' ],
             \            [ 'gitbranch', 'readonly', 'filename', 'modified' ]
@@ -252,9 +237,9 @@ let g:lightline = {
 
 autocmd User ALELint call lightline#update()
 
-let g:lightline.separator = {
-            \   'left': '', 'right': ''
-            \}
+"let g:lightline.separator = {
+"            \   'left': '', 'right': ''
+"            \}
 
 let g:lightline.tabline = {
             \ 'left': [ ['tabs'] ],
@@ -279,8 +264,20 @@ au FileType python highlight ColorColumn ctermbg=grey guibg=lightgrey
 au FileType python syn keyword pythonDecorator True None false self
 let python_highlight_all=1
 
+" C
+augroup project
+    autocmd!
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+augroup END
+" configure build system
+set makeprg=make\ -C\ ../build\ -j9
+" bind F4 to compile
+nnoremap <F4> :make!<cr>
+
 " Full Stack
 au BufNewFile,BufRead *.js, *.html, *.css
             \ set tabstop=2 |
             \ set softtabstop=2 |
             \ set shiftwidth=2 |
+
+set t_ut=
