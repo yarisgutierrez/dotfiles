@@ -28,6 +28,8 @@ Plugin 'itchyny/lightline.vim'              " Status line
 Plugin 'sheerun/vim-polyglot'
 Plugin 'Yggdroot/indentLine'
 Plugin 'davidhalter/jedi'
+Plugin 'tpope/vim-vividchalk'
+Plugin 'nanotech/jellybeans.vim'
 
 call vundle#end()
 
@@ -45,9 +47,12 @@ let &t_ZR="\e[23m"
 
 " Colors
 syntax enable
+set background=dark
 set t_Co=256
-set termguicolors
-colorscheme koehler
+"set termguicolors
+colorscheme default
+highlight Comment ctermfg=green
+
 
 " Misc
 set updatetime=250
@@ -210,7 +215,7 @@ endfunction
 
 " Lightline settings
 let g:lightline = {
-            \ 'colorscheme': 'default',
+            \ 'colorscheme': 'jellybeans',
             \ 'active': {
             \   'left':[ [ 'mode', 'paste' ],
             \            [ 'gitbranch', 'readonly', 'filename', 'modified' ]
