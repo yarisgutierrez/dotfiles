@@ -38,6 +38,7 @@ if exists('$TMUX')
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+""" Appearance
 " Italics
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
@@ -48,8 +49,15 @@ set background=dark
 set t_Co=256
 "set termguicolors
 colorscheme default
-highlight Comment ctermfg=green
+hi Comment ctermfg=green                    " Change the default comment color to something more legible
+hi LineNr ctermfg=darkgray                  " Dark gray linenumbers to replace default
+hi CursorLineNR ctermfg=white               " Let's me know what line I'm on
+hi Visual ctermfg=black ctermbg=green       " Make selections easier to read
 
+" GitGutter Stuff
+hi GitGutterAdd ctermfg=green
+hi GitGutterChange ctermfg=yellow
+hi GitGutterDelete ctermfg=darkred
 
 " Misc
 set updatetime=250
@@ -59,7 +67,6 @@ set backspace=indent,eol,start
 set switchbuf+=usetab,newtab
 set mouse=a
 set clipboard=unnamed
-
 
 " Flag unnecessary whitespace
 highlight BadWhitespace ctermbg=Red guibg=DarkRed
@@ -74,14 +81,15 @@ set autoindent
 
 " UI Layout
 set showtabline=2
-set guioptions-=e
 set cursorline
 set nu
 nmap <F3> :set nu!<CR>
 set noshowmode
-set showmatch           " Highlight matching paranthesis
+set showmatch                               " Highlight matching paranthesis
 
-" Ale
+
+""" Statusline
+" Ale linter settings
 let g:ale_sign_column_always = 1
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_echo_msg_error_str = 'ERROR'
@@ -90,7 +98,6 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
 
-""" Statusline
 " Display errors from Ale in statusline
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -129,6 +136,7 @@ function! StatuslineMode()
     endif
 endfunction
 
+" Git repo/status
 function! StatuslineGitBranch()
     let b:gitbranch=""
     if &modifiable
@@ -149,23 +157,14 @@ augroup END
 set laststatus=2
 set statusline=
 set statusline+=\ %{StatuslineMode()}\ 
-set statusline+=%4*\ [%n]
-set statusline+=%4*
-set statusline+=\ %{b:gitbranch}
-set statusline+=\ ‹‹\ 
-set statusline+=%4*\%F
-set statusline+=\ ››
+set statusline+=%4*\ [%n]\%4*
+set statusline+=%4*\ %{b:gitbranch}
+set statusline+=%1*\ %F\ %4*
 set statusline+=%=
+set statusline+=%4*\ %y\ %4*
 set statusline+=%5*\ %{LinterStatus()}\ 
-set statusline+=%1*\ %y\ 
-set statusline+=\%4*
-set statusline+=\ %{strlen(&fenc)?&fenc:'none'}\ 
-set statusline+=%4*
-set statusline+=%2*
-set statusline+=\ %l
-set statusline+=:
-set statusline+=%c\ 
-set statusline+=%4*
+set statusline+=%1*\ %{strlen(&fenc)?&fenc:'none'}\ %4*
+set statusline+=%2*\ %l\:%c\ %4*
 set statusline+=%2*\ %P\ 
 
 " Define colors
@@ -173,7 +172,7 @@ hi User1 ctermbg=white ctermfg=black
 hi User2 ctermbg=darkgray ctermfg=white
 hi User3 ctermbg=green ctermfg=black
 hi User4 ctermbg=black ctermfg=white
-hi User5 ctermbg=cyan ctermfg=black
+hi User5 ctermbg=darkcyan ctermfg=black
 
 
 " Searching
