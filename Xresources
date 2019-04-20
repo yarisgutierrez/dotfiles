@@ -35,51 +35,31 @@ URxvt.tabbed.tabbar-bg:		0
 URxvt.tabbed.tab-fg:		15
 URxvt.tabbed.tab-bg:		4
 
-! Gotham Colorscheme
-*.foreground:               #98d1ce
-*.background:               #0a0f14
-*.cursorColor:              #98d1ce
+! Yaris Colorscheme
+*.foreground:               #EFEFEC
+*.background:               #000000
+*.cursorColor:              #FFFFFF
 
-*.color0:                   #0a0f14
-*.color8:                   #10151b
+*.color0:                   #212121
+*.color8:                   #616161
 
-*.color1:                   #c33027
-*.color9:                   #d26939
+*.color1:                   #FF1744
+*.color9:                   #D50000
 
-*.color2:                   #26a98b
-*.color10:                  #081f2d
+*.color2:                   #00C853
+*.color10:                  #00E676
 
-*.color3:                   #edb54b
-*.color11:                  #245361
+*.color3:                   #FDBC4B
+*.color11:                  #FDBC4B
 
-*.color4:                   #195465
-*.color12:                  #093748
+*.color4:                   #00B8D4
+*.color12:                  #00E5FF
 
-*.color5:                   #4e5165
-*.color13:                  #888ba5
+*.color5:                   #AA00FF
+*.color13:                  #D500F9
 
-*.color6:                   #33859d
-*.color14:                  #599caa
+*.color6:                   #1DE9B6
+*.color14:                  #64FFDA
 
-*.color7:                   #98d1ce
-*.color15:                  #d3ebe9
-
-! Dracula Xresources palette
-!*.foreground: 			#f8f8f2
-!*.background: 			#282a36
-!*.color0:			    #000000
-!*.color8:			    #4d4d4d
-!*.color1:			    #ff5555
-!*.color9:			    #ff6e67
-!*.color2:			    #50fa7b
-!*.color10:			    #5af78e
-!*.color3:			    #f1fa8c
-!*.color11:			    #f4f99d
-!*.color4:			    #caa9fa
-!*.color12:			    #caa9fa
-!*.color5:			    #ff79c6
-!*.color13:			    #ff92d0
-!*.color6:			    #8be9fd
-!*.color14:			    #9aedfe
-!*.color7:			    #bfbfbf
-!*.color15:			    #e6e6e6
+*.color7:                   #BDBDBD
+*.color15:                  #EEEEEE
