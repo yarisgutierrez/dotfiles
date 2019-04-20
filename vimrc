@@ -24,12 +24,9 @@ Plugin 'Townk/vim-autoclose'                " Autoclose
 Plugin 'tpope/vim-surround'                 " Handle surround characters such as ''
 Plugin 'nvie/vim-flake8'                    " Check syntax and style through Flake8
 Plugin 'hynek/vim-python-pep8-indent'       " Modify vim indentation to comply to PEP8
-Plugin 'itchyny/lightline.vim'              " Status line
 Plugin 'sheerun/vim-polyglot'
 Plugin 'Yggdroot/indentLine'
 Plugin 'davidhalter/jedi'
-Plugin 'tpope/vim-vividchalk'
-Plugin 'nanotech/jellybeans.vim'
 
 call vundle#end()
 
@@ -81,11 +78,102 @@ set guioptions-=e
 set cursorline
 set nu
 nmap <F3> :set nu!<CR>
+set noshowmode
+set showmatch           " Highlight matching paranthesis
+
+" Ale
+let g:ale_sign_column_always = 1
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+let g:ale_echo_msg_error_str = 'ERROR'
+let g:ale_echo_msg_warning_str = 'WARNING'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
+
+""" Statusline
+" Display errors from Ale in statusline
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? 'OK' : printf(
+                \ 'W:%d E:%d',
+                \ all_non_errors,
+                \ all_errors
+                \)
+endfunction
+
+" Custom status line status to avoid using plugin(s)
+function! StatuslineMode()
+    let l:mode=mode()
+    if l:mode==#"n"
+        exe 'hi! StatusLine ctermfg=blue ctermbg=black'
+        return "NORMAL"
+    elseif l:mode==?"v"
+        exe 'hi! StatusLine ctermfg=yellow ctermbg=black'
+        return "VISUAL"
+    elseif l:mode==#"i"
+        exe 'hi! StatusLine ctermfg=green ctermbg=black'
+        return "INSERT"
+    elseif l:mode==#"R"
+        exe 'hi! StatusLine ctermfg=red ctermbg=white'
+        return "REPLACE"
+    elseif l:mode==?"s"
+        return "SELECT"
+    elseif l:mode==#"t"
+        return "TERMINAL"
+    elseif l:mode==#"c"
+        return "COMMAND"
+    elseif l:mode==#"!"
+        return "SHELL"
+    endif
+endfunction
+
+function! StatuslineGitBranch()
+    let b:gitbranch=""
+    if &modifiable
+        lcd %:p:h
+        let l:gitrevparse=system("git rev-parse --abbrev-ref HEAD")
+        lcd -
+        if l:gitrevparse!~"fatal: not a git repository"
+            let b:gitbranch="(".substitute(l:gitrevparse, '\n', '', 'g').") "
+        endif
+    endif
+endfunction
+
+augroup GetGitBranch
+    autocmd!
+    autocmd VimEnter,WinEnter,BufEnter * call StatuslineGitBranch()
+augroup END
 
 set laststatus=2
-set noshowmode
+set statusline=
+set statusline+=\ %{StatuslineMode()}\ 
+set statusline+=%4*\ [%n]
+set statusline+=%4*
+set statusline+=\ %{b:gitbranch}
+set statusline+=\ ‹‹\ 
+set statusline+=%4*\%F
+set statusline+=\ ››
+set statusline+=%=
+set statusline+=%5*\ %{LinterStatus()}\ 
+set statusline+=%1*\ %y\ 
+set statusline+=\%4*
+set statusline+=\ %{strlen(&fenc)?&fenc:'none'}\ 
+set statusline+=%4*
+set statusline+=%2*
+set statusline+=\ %l
+set statusline+=:
+set statusline+=%c\ 
+set statusline+=%4*
+set statusline+=%2*\ %P\ 
 
-set showmatch           " Highlight matching paranthesis
+" Define colors
+hi User1 ctermbg=white ctermfg=black
+hi User2 ctermbg=darkgray ctermfg=white
+hi User3 ctermbg=green ctermfg=black
+hi User4 ctermbg=black ctermfg=white
+hi User5 ctermbg=cyan ctermfg=black
 
 
 " Searching
@@ -118,14 +206,6 @@ nmap <F6> :NERDTreeToggle<CR>
 nmap <F7> :NERDTreeFind<CR>
 nmap <F8> :TagbarToggle<CR>
 
-" Ale
-let g:ale_sign_column_always = 1
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-let g:ale_echo_msg_error_str = 'ERROR'
-let g:ale_echo_msg_warning_str = 'WARNING'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-highlight link ALEWarningSign String
-highlight link ALEErrorSign Title
 
 " AutoGroups
 augroup configgroup
@@ -191,65 +271,6 @@ function! ToggleHiddenAll()
 endfunction
 
 nnoremap <S-h> :call ToggleHiddenAll()<CR>
-
-function! LightlineLinterWarnings() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
-endfunction
-
-function! LightLineLinterErrors() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
-endfunction
-
-function! LightlineLinterOK() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '✓' : ''
-endfunction
-
-" Lightline settings
-let g:lightline = {
-            \ 'colorscheme': 'jellybeans',
-            \ 'active': {
-            \   'left':[ [ 'mode', 'paste' ],
-            \            [ 'gitbranch', 'readonly', 'filename', 'modified' ]
-            \   ],
-            \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
-            \ },
-                \   'component': {
-                \     'lineinfo': ' %3l:%-2v',
-                \   },
-            \   'component_function': {
-            \     'gitbranch': 'fugitive#head',
-            \   },
-            \   'component_expand': {
-            \     'linter_warnings': 'LightlineLinterWarnings',
-            \     'linter_errors': 'LightlineLinterErrors',
-            \     'linter_ok': 'LightlineLinterOK'
-            \ },
-            \   'component_type': {
-            \     'readonly': 'error',
-            \     'linter_warnings': 'warning',
-            \     'linter_errors': 'error'
-            \},
-            \ }
-
-autocmd User ALELint call lightline#update()
-
-"let g:lightline.separator = {
-"            \   'left': '', 'right': ''
-"            \}
-
-let g:lightline.tabline = {
-            \ 'left': [ ['tabs'] ],
-            \ 'right': [ ['close'] ]
-            \}
 
 " PHP
 " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
