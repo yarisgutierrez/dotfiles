@@ -1,6 +1,6 @@
 " Vim color file
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last Change:	2001 Jul 23
+" Maintainer:	Yaris Gutierrez <yarisgutierrez@gmail.com>
+" Last Change:	2019 Apr 20
 
 " This is the default color scheme.  It doesn't define the Normal
 " highlighting, it uses whatever the colors used to be.
@@ -18,6 +18,14 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "default"
+let colors_name = "yaris"
+
+hi Comment ctermfg=green
+hi LineNr ctermfg=darkgray
+hi CursorLineNR ctermfg=white
+hi Visual ctermfg=black ctermbg=green
+hi GitGutterAdd ctermfg=green
+hi GitGutterChange ctermfg=yellow
+hi GitGutterDelete ctermfg=darkred
 
 " vim: sw=2

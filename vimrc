@@ -48,7 +48,7 @@ syntax enable
 set background=dark
 set t_Co=256
 "set termguicolors
-colorscheme default
+colorscheme yaris
 hi Comment ctermfg=green                    " Change the default comment color to something more legible
 hi LineNr ctermfg=darkgray                  " Dark gray linenumbers to replace default
 hi CursorLineNR ctermfg=white               " Let's me know what line I'm on
