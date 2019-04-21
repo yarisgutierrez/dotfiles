@@ -24,6 +24,7 @@ hi Comment ctermfg=green
 hi LineNr ctermfg=darkgray
 hi CursorLineNR ctermfg=white
 hi Visual ctermfg=black ctermbg=green
+hi Statement ctermfg=lightgray cterm=bold
 hi GitGutterAdd ctermfg=green
 hi GitGutterChange ctermfg=yellow
 hi GitGutterDelete ctermfg=darkred
