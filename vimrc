@@ -1,6 +1,8 @@
-" -----------------------------------------------
-" Yaris Alex Gutierrez <yarisgutierrez@gmail.com>
-" vimrc
+" -------------------------------------------------------------
+"  File: .vimrc
+"  Author: Yaris Alex Gutierrez <yarisgutierrez@gmail.com>
+"  Last Modified: 20 Apr 2019
+" -------------------------------------------------------------
 
 " Vundle
 set nocompatible
@@ -49,15 +51,6 @@ set background=dark
 set t_Co=256
 "set termguicolors
 colorscheme yaris
-hi Comment ctermfg=green                    " Change the default comment color to something more legible
-hi LineNr ctermfg=darkgray                  " Dark gray linenumbers to replace default
-hi CursorLineNR ctermfg=white               " Let's me know what line I'm on
-hi Visual ctermfg=black ctermbg=green       " Make selections easier to read
-
-" GitGutter Stuff
-hi GitGutterAdd ctermfg=green
-hi GitGutterChange ctermfg=yellow
-hi GitGutterDelete ctermfg=darkred
 
 " Misc
 set updatetime=250

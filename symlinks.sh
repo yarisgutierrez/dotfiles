@@ -7,7 +7,7 @@
 ###  Vars ###
 directory=~/git/dotfiles                          # dotfiles directory
 old_directory=~/dotfiles_old                      # Old dotfiles backup directory
-files="zshrc bashrc vimrc vim oh-my-zsh bashrc"   # List of files/folders to symlink to the home dir
+files="zshrc bashrc vimrc vim oh-my-zsh tmux.conf"   # List of files/folders to symlink to the home dir
 
 
 ### Create dotfiles_old in the home directory ###
