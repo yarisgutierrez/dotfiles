@@ -51,9 +51,6 @@ set background=dark
 set t_Co=256
 "set termguicolors
 colorscheme yaris
-hi Operator ctermfg=darkmagenta cterm=bold
-hi Special ctermfg=darkgray
-hi Error ctermfg=black ctermbg=red
 
 " Misc
 set updatetime=250
