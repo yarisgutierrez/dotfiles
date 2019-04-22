@@ -26,7 +26,7 @@ hi CursorLineNR ctermfg=white
 hi Visual ctermfg=black ctermbg=green
 hi Statement ctermfg=lightgray cterm=bold
 hi Operator ctermfg=darkmagenta cterm=bold
-hi Special ctermfg=darkgray
+hi Special ctermfg=yellow
 hi GitGutterAdd ctermfg=green
 hi GitGutterChange ctermfg=yellow
 hi GitGutterDelete ctermfg=darkred

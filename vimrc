@@ -51,6 +51,8 @@ set background=dark
 set t_Co=256
 "set termguicolors
 colorscheme yaris
+hi ALEWarning ctermbg=yellow
+hi ALEError ctermbg=darkred ctermfg=black
 
 " Misc
 set updatetime=250
@@ -107,7 +109,7 @@ endfunction
 function! StatuslineMode()
     let l:mode=mode()
     if l:mode==#"n"
-        exe 'hi! StatusLine ctermfg=blue ctermbg=black'
+        exe 'hi! StatusLine ctermfg=blue ctermbg=white'
         return "NORMAL"
     elseif l:mode==?"v"
         exe 'hi! StatusLine ctermfg=yellow ctermbg=black'
