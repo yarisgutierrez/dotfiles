@@ -106,7 +106,7 @@ endfunction
 function! StatuslineMode()
     let l:mode=mode()
     if l:mode==#"n"
-        exe 'hi! StatusLine ctermfg=blue ctermbg=white'
+        exe 'hi! StatusLine ctermfg=blue ctermbg=black'
         return "NORMAL"
     elseif l:mode==?"v"
         exe 'hi! StatusLine ctermfg=yellow ctermbg=black'
