@@ -1,7 +1,6 @@
 " -------------------------------------------------------------
 "  File: .vimrc
 "  Author: Yaris Alex Gutierrez <yarisgutierrez@gmail.com>
-"  Last Modified: 20 Apr 2019
 " -------------------------------------------------------------
 
 " Vundle
@@ -51,8 +50,6 @@ set background=dark
 set t_Co=256
 "set termguicolors
 colorscheme yaris
-hi ALEWarning ctermbg=yellow
-hi ALEError ctermbg=darkred ctermfg=black
 
 " Misc
 set updatetime=250
@@ -64,7 +61,7 @@ set mouse=a
 set clipboard=unnamed
 
 " Flag unnecessary whitespace
-highlight BadWhitespace ctermbg=Red guibg=DarkRed
+hi BadWhitespace ctermbg=Red guibg=DarkRed
 
 " Spaces & Tabs
 set tabstop=4

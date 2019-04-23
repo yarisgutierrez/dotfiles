@@ -1,9 +1,5 @@
 " Vim color file
 " Maintainer:	Yaris Gutierrez <yarisgutierrez@gmail.com>
-" Last Change:	2019 Apr 20
-
-" This is the default color scheme.  It doesn't define the Normal
-" highlighting, it uses whatever the colors used to be.
 
 " Set 'background' back to the default.  The value can't always be estimated
 " and is then guessed.
@@ -27,8 +23,19 @@ hi Visual ctermfg=black ctermbg=green
 hi Statement ctermfg=lightgray cterm=bold
 hi Operator ctermfg=darkmagenta cterm=bold
 hi Special ctermfg=yellow
+hi Boolean ctermfg=yellow cterm=bold
+hi Decorator ctermfg=green
+hi Conditional ctermfg=blue cterm=bold
+
+hi TabLineFill ctermfg=black
+hi TabLine ctermbg=black ctermfg=white
+hi TabLineSel ctermbg=darkgray ctermfg=white cterm=none
+
 hi GitGutterAdd ctermfg=green
 hi GitGutterChange ctermfg=yellow
 hi GitGutterDelete ctermfg=darkred
+
+hi ALEWarning ctermbg=yellow ctermfg=black
+hi ALEError ctermbg=darkred ctermfg=black
 
 " vim: sw=2
