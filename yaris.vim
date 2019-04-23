@@ -26,6 +26,8 @@ hi Special ctermfg=yellow
 hi Boolean ctermfg=yellow cterm=bold
 hi Decorator ctermfg=green
 hi Conditional ctermfg=blue cterm=bold
+hi Constant ctermfg=red
+hi PreProc ctermfg=magenta
 
 hi TabLineFill ctermfg=black
 hi TabLine ctermbg=black ctermfg=white
