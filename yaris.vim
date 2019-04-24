@@ -21,7 +21,7 @@ hi LineNr ctermfg=darkgray
 hi CursorLineNR ctermfg=white
 hi Visual ctermfg=black ctermbg=green
 hi Statement ctermfg=lightgray cterm=bold
-hi Operator ctermfg=darkmagenta cterm=bold
+hi Operator ctermfg=darkmagenta
 hi Special ctermfg=yellow
 hi Boolean ctermfg=yellow cterm=bold
 hi Decorator ctermfg=green
