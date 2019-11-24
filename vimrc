@@ -28,6 +28,8 @@ Plugin 'hynek/vim-python-pep8-indent'       " Modify vim indentation to comply t
 Plugin 'sheerun/vim-polyglot'
 Plugin 'Yggdroot/indentLine'
 Plugin 'davidhalter/jedi'
+Plugin 'marciomazza/vim-brogrammer-theme'
+Plugin 'kien/ctrlp.vim'
 
 call vundle#end()
 
@@ -48,9 +50,9 @@ let &t_ZR="\e[23m"
 syntax enable
 set background=dark
 set t_Co=256
-"set termguicolors
-colorscheme yaris
-
+set termguicolors
+colorscheme brogrammer
+"
 " Misc
 set updatetime=250
 set encoding=utf-8
@@ -270,6 +272,8 @@ let g:SuperTabDefaultCompletionType= "<c-x><c-o>"
 
 " Python
 au BufNewFile,BufRead *.py set filetype=python
+au FileType python set expandtab
+au FileType python set fileformat=unix
 au FileType python set textwidth=79         " PEP-8 Friendly. Lines longer than 79 columns will be broken
 au FileType python set shiftwidth=4         " operation >> indents 4 columns; << unindents 4 columns
 au FileType python set tabstop=4            " a hard TAB displays as 4 columns
