@@ -26,9 +26,9 @@ Plugin 'tpope/vim-surround'                 " Handle surround characters such as
 Plugin 'nvie/vim-flake8'                    " Check syntax and style through Flake8
 Plugin 'hynek/vim-python-pep8-indent'       " Modify vim indentation to comply to PEP8
 Plugin 'sheerun/vim-polyglot'
-Plugin 'Yggdroot/indentLine'
 Plugin 'davidhalter/jedi'
 Plugin 'marciomazza/vim-brogrammer-theme'
+Plugin 'gruvbox-community/gruvbox'
 Plugin 'kien/ctrlp.vim'
 
 call vundle#end()
@@ -50,9 +50,11 @@ let &t_ZR="\e[23m"
 syntax enable
 set background=dark
 set t_Co=256
-set termguicolors
-colorscheme brogrammer
-"
+"set termguicolors
+colorscheme peachpuff
+hi Comment ctermfg=green
+hi CursorLine cterm=None
+
 " Misc
 set updatetime=250
 set encoding=utf-8
