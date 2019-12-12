@@ -27,8 +27,6 @@ Plugin 'nvie/vim-flake8'                    " Check syntax and style through Fla
 Plugin 'hynek/vim-python-pep8-indent'       " Modify vim indentation to comply to PEP8
 Plugin 'sheerun/vim-polyglot'
 Plugin 'davidhalter/jedi'
-Plugin 'marciomazza/vim-brogrammer-theme'
-Plugin 'gruvbox-community/gruvbox'
 Plugin 'kien/ctrlp.vim'
 
 call vundle#end()
@@ -52,6 +50,7 @@ set background=dark
 set t_Co=256
 "set termguicolors
 colorscheme peachpuff
+"colorscheme yaris
 hi Comment ctermfg=green
 hi CursorLine cterm=None
 
