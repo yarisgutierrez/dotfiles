@@ -303,4 +303,8 @@ au BufNewFile,BufRead *.js, *.html, *.css
             \ set softtabstop=2 |
             \ set shiftwidth=2 |
 
+" Log Stuff
+au BufNewFile,BufRead *.log* set filetype=log
+au BufNewFile,BufRead *.log set filetype=log
+
 set t_ut=
