@@ -28,6 +28,7 @@ Plugin 'hynek/vim-python-pep8-indent'       " Modify vim indentation to comply t
 Plugin 'sheerun/vim-polyglot'
 Plugin 'davidhalter/jedi'
 Plugin 'kien/ctrlp.vim'
+Plugin 'marciomazza/vim-brogrammer-theme'
 
 call vundle#end()
 
@@ -49,10 +50,10 @@ syntax enable
 set background=dark
 set t_Co=256
 "set termguicolors
-colorscheme peachpuff
+colorscheme brogrammer
 "colorscheme yaris
-hi Comment ctermfg=green
-hi CursorLine cterm=None
+"hi Comment ctermfg=green
+hi Normal ctermbg=black
 
 " Misc
 set updatetime=250
@@ -65,6 +66,22 @@ set clipboard=unnamed
 
 " Flag unnecessary whitespace
 hi BadWhitespace ctermbg=Red guibg=DarkRed
+
+" Disable Arrow Keys
+noremap  <Up> ""
+noremap! <Up> <Esc>
+noremap  <Down> ""
+noremap! <Down> <Esc>
+noremap  <Left> ""
+noremap! <Left> <Esc>
+noremap  <Right> ""
+noremap! <Right> <Esc>
+
+" Move between splits
+noremap <C-h> <C-w><Left>
+noremap <C-j> <C-w><Down>
+noremap <C-k> <C-w><Up>
+noremap <C-l> <C-w><Right>
 
 " Spaces & Tabs
 set tabstop=4
@@ -81,7 +98,6 @@ set nu
 nmap <F3> :set nu!<CR>
 set noshowmode
 set showmatch                               " Highlight matching paranthesis
-
 
 """ Statusline
 " Ale linter settings
