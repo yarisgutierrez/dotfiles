@@ -47,8 +47,9 @@ let &t_ZR="\e[23m"
 syntax enable
 set background=dark
 set t_Co=256
-set termguicolors
-colorscheme brogrammer
+"set termguicolors
+colorscheme peachpuff
+hi Comment ctermfg=green
 
 " Misc
 set updatetime=250
@@ -88,7 +89,7 @@ set autoindent
 
 " UI Layout
 set showtabline=2
-set cursorline
+"set cursorline
 set nu
 nmap <F3> :set nu!<CR>
 set noshowmode
