@@ -45,11 +45,11 @@ let &t_ZR="\e[23m"
 
 " Colors
 syntax enable
-set background=dark
+"set background=dark
 set t_Co=256
-"set termguicolors
-colorscheme peachpuff
-hi Comment ctermfg=green
+set termguicolors
+colorscheme brogrammer
+"hi Comment ctermfg=green
 
 " Misc
 set updatetime=250
