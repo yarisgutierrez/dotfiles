@@ -83,7 +83,7 @@ set autoindent
 
 " UI Layout
 set showtabline=2
-"set cursorline
+set cursorline
 set nu
 nmap <F3> :set nu!<CR>
 set noshowmode
