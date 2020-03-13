@@ -49,7 +49,7 @@ let &t_ZR="\e[23m"
 syntax enable
 set background=dark
 set t_Co=256
-set termguicolors
+"set termguicolors      " Diable when using tmux
 colorscheme nord
 
 " Misc
