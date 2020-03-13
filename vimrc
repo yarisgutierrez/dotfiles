@@ -50,12 +50,9 @@ syntax enable
 "set background=dark
 set t_Co=256
 set termguicolors
-<<<<<<< HEAD
 colorscheme nord
-=======
-colorscheme brogrammer
+colorscheme peachpuff
 "hi Comment ctermfg=green
->>>>>>> b6ef157b932783bdc7942482f32030e0a4dea863
 
 " Misc
 set updatetime=250
