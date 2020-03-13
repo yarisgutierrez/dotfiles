@@ -13,7 +13,6 @@ call plug#begin('~/.vim/plugged')
 " Active Plugins
 Plug 'vim-scripts/indentpython.vim'       " 
 Plug 'tmhedberg/SimpylFold'               " Code folding
-Plug 'w0rp/ale'                           " True asynchronous linter/code checker. Replaced Synatastic
 Plug 'scrooloose/nerdtree'                " Better file browser
 Plug 'tpope/vim-fugitive'                 " Git integration
 Plug 'airblade/vim-gitgutter'
@@ -26,7 +25,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'davidhalter/jedi'
 Plug 'kien/ctrlp.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'marciomazza/vim-brogrammer-theme'
+Plug 'lervag/vimtex'
+Plug 'honza/vim-snippets'
+Plug 'arcticicestudio/nord-vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 call plug#end()
 
@@ -48,7 +50,7 @@ syntax enable
 set background=dark
 set t_Co=256
 set termguicolors
-colorscheme brogrammer
+colorscheme nord
 
 " Misc
 set updatetime=250
@@ -58,19 +60,12 @@ set backspace=indent,eol,start
 set switchbuf+=usetab,newtab
 set mouse=a
 set clipboard=unnamed
+setlocal spell
+set spelllang=en_us
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " Flag unnecessary whitespace
 hi BadWhitespace ctermbg=Red guibg=DarkRed
-
-" Disable Arrow Keys
-noremap  <Up> ""
-noremap! <Up> <Esc>
-noremap  <Down> ""
-noremap! <Down> <Esc>
-noremap  <Left> ""
-noremap! <Left> <Esc>
-noremap  <Right> ""
-noremap! <Right> <Esc>
 
 " Move between splits
 noremap <C-h> <C-w><Left>
@@ -92,9 +87,40 @@ set cursorline
 set nu
 nmap <F3> :set nu!<CR>
 set noshowmode
-set showmatch                               " Highlight matching paranthesis
+set showmatch
 
-""" COC Settings
+" LaTeX Stuff
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:text_conceal='abdmg'
+
+" Markdown Preview
+let g:mkdp_auto_start=0
+let g:mkdp_auto_close=0
+let g:mkdp_refresh_slow=0
+let g:mkdp_command_for_global=0
+let g:mkdp_open_to_the_world=0
+let g:mkdp_open_ip=''
+let g:mkdp_browser='firefox'
+let g:mkdp_echo_preview_url=0
+let g:mkdp_browserfunc=''
+
+" options for Markdown render
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {}
+    \ }
+
+" COC Settings
 let g:coc_global_extensions = [
     \ 'coc-snippets',
     \ 'coc-pairs',
@@ -102,16 +128,43 @@ let g:coc_global_extensions = [
     \ 'coc-html',
     \ 'coc-prettier',
     \ 'coc-json',
-    \ 'coc-python'
+    \ 'coc-python',
+    \ 'coc-vimtex'
     \ ]
 
-set hidden                                  " if hidden is not set, TexEdit might fail
-set nobackup                                " Some servers has issues with backup files
+set hidden
+set nobackup
 set nowritebackup                           
-set cmdheight=2                             " Better display for messages
-set updatetime=300                          " Bad experience for diagnostic messages when default is 4000
-set shortmess+=c                            " Do not give ins-completion-menu messages
-set signcolumn=yes                         " Always show signcolumns
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+
+" Use <C-l> for trigger snippet expand
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+    let = col('.') - 1
+    return !col || getline('.')[col - 1] =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
 
 " Use tab for trigger completion with chracters ahead and navigate
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin
@@ -226,27 +279,6 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 
 """ Statusline
-" Ale linter settings
-let g:ale_sign_column_always = 1
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-let g:ale_echo_msg_error_str = 'ERROR'
-let g:ale_echo_msg_warning_str = 'WARNING'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-highlight link ALEWarningSign String
-highlight link ALEErrorSign Title
-
-" Display errors from Ale in statusline
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? 'OK' : printf(
-                \ 'W:%d E:%d',
-                \ all_non_errors,
-                \ all_errors
-                \)
-endfunction
-
 " Custom status line status to avoid using plugin(s)
 function! StatuslineMode()
     let l:mode=mode()
@@ -305,7 +337,7 @@ function! StatusDiagnostic() abort
     return join(msgs, ' '). ' ' . get(g:, 'coc_status', '')
 endfunction
 
-set laststatus=2
+set laststatus=0                " Set to 2 to enable. Disabled by default
 set statusline=
 set statusline+=\ %{StatuslineMode()}\ 
 set statusline+=%4*\ [%n]\%4*
@@ -314,14 +346,13 @@ set statusline+=%1*\ %F\ %4*
 set statusline+=%3*\ %{StatusDiagnostic()}\%4*
 set statusline+=%=
 set statusline+=%4*\ %y\ %4*
-set statusline+=%5*\ %{LinterStatus()}\ 
 set statusline+=%1*\ %{strlen(&fenc)?&fenc:'none'}\ %4*
 set statusline+=%2*\ %l\:%c\ %4*
 set statusline+=%2*\ %P\ 
 
 " Define colors
 hi User1 ctermbg=white ctermfg=black
-hi User2 ctermbg=darkgray ctermfg=white
+hi User2 ctermbg=blue ctermfg=white
 hi User3 ctermbg=green ctermfg=black
 hi User4 ctermbg=black ctermfg=white
 hi User5 ctermbg=darkcyan ctermfg=black
@@ -432,12 +463,12 @@ let g:SuperTabDefaultCompletionType= "<c-x><c-o>"
 au BufNewFile,BufRead *.py set filetype=python
 au FileType python set expandtab
 au FileType python set fileformat=unix
-au FileType python set textwidth=79         " PEP-8 Friendly. Lines longer than 79 columns will be broken
-au FileType python set shiftwidth=4         " operation >> indents 4 columns; << unindents 4 columns
-au FileType python set tabstop=4            " a hard TAB displays as 4 columns
-au FileType python set softtabstop=4        " insert/delete 4 spaces when hitting a TAB/BACKSPACE
-au FileType python set shiftround           " round indent to multiple 'shiftwidth'
-au FileType python set autoindent           " align the new line indent with the previous line
+au FileType python set textwidth=79
+au FileType python set shiftwidth=4
+au FileType python set tabstop=4
+au FileType python set softtabstop=4
+au FileType python set shiftround
+au FileType python set autoindent
 au FileType python set colorcolumn=79
 au FileType python highlight ColorColumn ctermbg=grey guibg=lightgrey
 au FileType python syn keyword pythonDecorator True None false self
