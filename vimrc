@@ -29,6 +29,7 @@ Plug 'lervag/vimtex'
 Plug 'honza/vim-snippets'
 Plug 'arcticicestudio/nord-vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -49,8 +50,9 @@ let &t_ZR="\e[23m"
 syntax enable
 set background=dark
 set t_Co=256
-"set termguicolors      " Diable when using tmux
-colorscheme nord
+set termguicolors      " Diable when using tmux
+let g:gruvbox_contrast_dark="hard"
+colorscheme gruvbox
 
 " Misc
 set updatetime=250
@@ -60,9 +62,6 @@ set backspace=indent,eol,start
 set switchbuf+=usetab,newtab
 set mouse=a
 set clipboard=unnamed
-setlocal spell
-set spelllang=en_us
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " Flag unnecessary whitespace
 hi BadWhitespace ctermbg=Red guibg=DarkRed
@@ -474,8 +473,15 @@ au FileType python highlight ColorColumn ctermbg=grey guibg=lightgrey
 au FileType python syn keyword pythonDecorator True None false self
 let python_highlight_all=1
 
+" Markdown
+au BufNewFile,Bufread *.md set filetype=markdown 
+au FileType markdown setlocal spell
+au FileType markdown set spelllang=en_us
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+
 " C
-augroup project
+augroup projec"t
     autocmd!
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
 augroup END

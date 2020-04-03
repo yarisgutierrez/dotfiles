@@ -99,7 +99,7 @@ compile_prompt () {
   local SPLITBAR2=$'\u257E\u2500\u257C'
   local ARROW=$'\u25B6'
   local c_green='\e[0;32m'
-  local c_gray='\e[01;30m'
+  local c_gray='\e[0;37m'
   local c_blue='\e[0;34m'
   local c_cyan='\e[0;36m'
   local c_magenta='\e[0;35m'
@@ -213,6 +213,3 @@ function psgrep() {
         echo "!! Need name to grep for"
     fi
 }
-
-
-
