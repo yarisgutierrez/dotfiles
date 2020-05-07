@@ -158,6 +158,7 @@ alias checkJournal="sudo journalctl --follow"
 alias mount_bigid="sudo mount.cifs //BIGID-YG/Downloads /home/protocol/bigIDShare/ -o user=Yaris"
 alias cpu='ps aux | sort -k 3,3 | tail'
 alias mem='ps aux | sort -k 4,4 | tail:w'
+alias grep='grep --color=always'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -212,4 +213,10 @@ function psgrep() {
     else
         echo "!! Need name to grep for"
     fi
+}
+
+function reboot_to_windows {
+    WINDOWS_TITLE=`grep -i 'windows' /boot/grub/grub.cfg|cut -d"'" -f2`
+    sudo grub-reboot "$WINDOWS_TITLE"
+    sudo reboot
 }

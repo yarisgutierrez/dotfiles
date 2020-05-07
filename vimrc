@@ -3,6 +3,26 @@
 "  Author: Yaris Alex Gutierrez <yarisgutierrez@gmail.com>
 " -------------------------------------------------------------
 
+""" Auto Installation
+if empty(glob("~/.vim/autoload/plug.vim"))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    auto VimEnter * PlugInstall
+endif
+
+" Create directories
+if !isdirectory($HOME . "/.vim/undo")
+    call mkdir($HOME . "/.vim/undo", "p")
+endif
+
+if !isdirectory($HOME . "/.vim/swap")
+    call mkdir($HOME . "/.vim/swap", "p")
+endif
+
+if !isdirectory($HOME . "/.vim/backup")
+    call mkdir($HOME . "/.vim/backup", "p")
+endif
+
 " Vundle
 set nocompatible
 
@@ -29,7 +49,7 @@ Plug 'lervag/vimtex'
 Plug 'honza/vim-snippets'
 Plug 'arcticicestudio/nord-vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-Plug 'morhetz/gruvbox'
+Plug 'jonathanfilip/vim-lucius'
 
 call plug#end()
 
@@ -51,8 +71,8 @@ syntax enable
 set background=dark
 set t_Co=256
 set termguicolors      " Diable when using tmux
-let g:gruvbox_contrast_dark="hard"
-colorscheme gruvbox
+colorscheme lucius
+LuciusDarkLowContrast
 
 " Misc
 set updatetime=250
@@ -336,7 +356,7 @@ function! StatusDiagnostic() abort
     return join(msgs, ' '). ' ' . get(g:, 'coc_status', '')
 endfunction
 
-set laststatus=0                " Set to 2 to enable. Disabled by default
+set laststatus=2                " Set to 2 to enable. Disabled by default
 set statusline=
 set statusline+=\ %{StatuslineMode()}\ 
 set statusline+=%4*\ [%n]\%4*
@@ -351,7 +371,7 @@ set statusline+=%2*\ %P\
 
 " Define colors
 hi User1 ctermbg=white ctermfg=black
-hi User2 ctermbg=blue ctermfg=white
+hi User2 ctermbg=blue ctermfg=black
 hi User3 ctermbg=green ctermfg=black
 hi User4 ctermbg=black ctermfg=white
 hi User5 ctermbg=darkcyan ctermfg=black
