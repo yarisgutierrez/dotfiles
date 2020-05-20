@@ -31,7 +31,7 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 " Active Plugins
-Plug 'vim-scripts/indentpython.vim'       " 
+Plug 'vim-scripts/indentpython.vim'       
 Plug 'tmhedberg/SimpylFold'               " Code folding
 Plug 'scrooloose/nerdtree'                " Better file browser
 Plug 'tpope/vim-fugitive'                 " Git integration
@@ -50,6 +50,7 @@ Plug 'honza/vim-snippets'
 Plug 'arcticicestudio/nord-vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jonathanfilip/vim-lucius'
+Plug 'phanviet/vim-monokai-pro'
 
 call plug#end()
 
@@ -71,8 +72,9 @@ syntax enable
 set background=dark
 set t_Co=256
 set termguicolors      " Diable when using tmux
-colorscheme lucius
-LuciusDarkLowContrast
+colorscheme monokai_pro
+hi LineNr guibg=#2d2a2e guifg=#5b595c
+hi SignColumn guibg=#2d2a2e
 
 " Misc
 set updatetime=250
@@ -102,7 +104,7 @@ set autoindent
 
 " UI Layout
 set showtabline=2
-set cursorline
+"set cursorline
 set nu
 nmap <F3> :set nu!<CR>
 set noshowmode
@@ -183,7 +185,6 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
-
 
 " Use tab for trigger completion with chracters ahead and navigate
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin
@@ -296,7 +297,6 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 """ END COC SETTINGS
 
-
 """ Statusline
 " Custom status line status to avoid using plugin(s)
 function! StatuslineMode()
@@ -376,7 +376,6 @@ hi User3 ctermbg=green ctermfg=black
 hi User4 ctermbg=black ctermfg=white
 hi User5 ctermbg=darkcyan ctermfg=black
 
-
 " Searching
 set ignorecase          " Ignore case when searching
 set incsearch           " Search as characters are entered
@@ -406,7 +405,6 @@ let NERDTreeIgnore = ['\.pyc$', 'build', 'venv', 'egg', 'egg-info/', 'dist', 'do
 nmap <F6> :NERDTreeToggle<CR>
 nmap <F7> :NERDTreeFind<CR>
 nmap <F8> :TagbarToggle<CR>
-
 
 " AutoGroups
 augroup configgroup
@@ -498,7 +496,6 @@ au BufNewFile,Bufread *.md set filetype=markdown
 au FileType markdown setlocal spell
 au FileType markdown set spelllang=en_us
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-
 
 " C
 augroup projec"t
