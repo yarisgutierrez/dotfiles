@@ -49,7 +49,7 @@ Plug 'lervag/vimtex'
 Plug 'honza/vim-snippets'
 Plug 'arcticicestudio/nord-vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-Plug 'jonathanfilip/vim-lucius'
+Plug 'gruvbox-community/gruvbox'
 
 call plug#end()
 
@@ -71,8 +71,13 @@ syntax enable
 set background=dark
 set t_Co=256
 set termguicolors      " Diable when using tmux
-colorscheme lucius
-LuciusDarkLowContrast
+let g:gruvbox_contrast_dark="hard"
+colorscheme gruvbox
+hi ColorColumn guibg=#3c3836
+hi SignColumn guibg=#1d1d1d
+hi GitGutterAdd guibg=#1d1d1d guifg=#98971a
+hi GitGutterChange guibg=#1d1d1d guifg=#689d6a
+hi GitGutterDelete guibg=#1d1d1d guifg=#cc241d
 
 " Misc
 set updatetime=250

@@ -142,13 +142,14 @@ PROMPT_COMMAND='compile_prompt'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors ~/.dir_colors/dir_colors)"
     alias ls='ls --color=auto'
 
 fi
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+LS_COLORS=$LS_COLORS:'di=0;36' ; export LS_COLORS
 
 # Aliases
 alias virtualenv3='python3 -m venv'
