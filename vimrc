@@ -50,7 +50,9 @@ Plug 'honza/vim-snippets'
 Plug 'arcticicestudio/nord-vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jonathanfilip/vim-lucius'
-Plug 'phanviet/vim-monokai-pro'
+Plug 'chriskempson/base16-vim'
+Plug 'danilo-augusto/vim-afterglow'
+Plug 'skywind3000/asyncrun.vim'
 
 call plug#end()
 
@@ -69,12 +71,21 @@ let &t_ZR="\e[23m"
 
 " Colors
 syntax enable
-set background=dark
+"set background=dark
 set t_Co=256
 set termguicolors      " Diable when using tmux
-colorscheme monokai_pro
-hi LineNr guibg=#2d2a2e guifg=#5b595c
-hi SignColumn guibg=#2d2a2e
+colorscheme afterglow
+hi Normal guibg=NONE ctermbg=NONE
+"hi GitGutterAdd guifg=#009900 guibg=black ctermbg=black ctermfg=2
+"hi GitGutterChange guifg=#bbbb00 guibg=black ctermbg=black ctermfg=3
+"hi GitGutterDelete guifg=#ff2222 guibg=black ctermbg=black ctermfg=1
+hi GitGutterAdd guibg=NONE ctermbg=NONE
+hi GitGutterChange guibg=NONE ctermbg=NONE
+hi GitGutterDelete guibg=NONE ctermbg=NONE
+"hi Comment guifg=#FFFFFF gui=italic ctermfg=210 cterm=italic
+"hi LineNr guifg=#d1d1d1 ctermfg=244
+hi LineNr guibg=NONE ctermbg=NONE
+hi clear SignColumn
 
 " Misc
 set updatetime=250
@@ -87,6 +98,7 @@ set clipboard=unnamed
 
 " Flag unnecessary whitespace
 hi BadWhitespace ctermbg=Red guibg=DarkRed
+
 
 " Move between splits
 noremap <C-h> <C-w><Left>
@@ -104,7 +116,7 @@ set autoindent
 
 " UI Layout
 set showtabline=2
-"set cursorline
+set cursorline
 set nu
 nmap <F3> :set nu!<CR>
 set noshowmode
@@ -298,32 +310,6 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 """ END COC SETTINGS
 
 """ Statusline
-" Custom status line status to avoid using plugin(s)
-function! StatuslineMode()
-    let l:mode=mode()
-    if l:mode==#"n"
-        exe 'hi! StatusLine ctermfg=blue ctermbg=white'
-        return "NORMAL"
-    elseif l:mode==?"v"
-        exe 'hi! StatusLine ctermfg=yellow ctermbg=black'
-        return "VISUAL"
-    elseif l:mode==#"i"
-        exe 'hi! StatusLine ctermfg=green ctermbg=black'
-        return "INSERT"
-    elseif l:mode==#"R"
-        exe 'hi! StatusLine ctermfg=red ctermbg=white'
-        return "REPLACE"
-    elseif l:mode==?"s"
-        return "SELECT"
-    elseif l:mode==#"t"
-        return "TERMINAL"
-    elseif l:mode==#"c"
-        return "COMMAND"
-    elseif l:mode==#"!"
-        return "SHELL"
-    endif
-endfunction
-
 " Git repo/status
 function! StatuslineGitBranch()
     let b:gitbranch=""
@@ -358,7 +344,10 @@ endfunction
 
 set laststatus=2                " Set to 2 to enable. Disabled by default
 set statusline=
-set statusline+=\ %{StatuslineMode()}\ 
+set statusline+=%#NormalColor#%{(mode()=='n')?'\ \ N\ ':''}
+set statusline+=%#InsertColor#%{(mode()=='i')?'\ \ I\ ':''}
+set statusline+=%#ReplaceColor#%{(mode()=='R')?'\ \ R\ ':''}
+set statusline+=%#VisualColor#%{(mode()=='v')?'\ \ V\ ':''}
 set statusline+=%4*\ [%n]\%4*
 set statusline+=%4*\ %{b:gitbranch}
 set statusline+=%1*\ %F\ %4*
@@ -370,11 +359,16 @@ set statusline+=%2*\ %l\:%c\ %4*
 set statusline+=%2*\ %P\ 
 
 " Define colors
-hi User1 ctermbg=white ctermfg=black
+hi User1 ctermbg=NONE ctermfg=white
 hi User2 ctermbg=blue ctermfg=black
 hi User3 ctermbg=green ctermfg=black
-hi User4 ctermbg=black ctermfg=white
+hi User4 ctermbg=NONE ctermfg=white             "ctermbg used to be black
 hi User5 ctermbg=darkcyan ctermfg=black
+
+hi NormalColor guifg=#1a1a1a guibg=#b4c973 
+hi InsertColor guifg=#d6d6d6 guibg=#6c99bb
+hi ReplaceColor guifg=#d6d6d6 guibg=#ac4142
+hi VisualColor guifg=#d6d6d6 guibg=#e87d3e
 
 " Searching
 set ignorecase          " Ignore case when searching
@@ -486,8 +480,8 @@ au FileType python set tabstop=4
 au FileType python set softtabstop=4
 au FileType python set shiftround
 au FileType python set autoindent
-au FileType python set colorcolumn=79
-au FileType python highlight ColorColumn ctermbg=grey guibg=lightgrey
+"au FileType python set colorcolumn=79
+"au FileType python highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 au FileType python syn keyword pythonDecorator True None false self
 let python_highlight_all=1
 
@@ -498,7 +492,7 @@ au FileType markdown set spelllang=en_us
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " C
-augroup projec"t
+augroup project
     autocmd!
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
 augroup END
@@ -506,6 +500,35 @@ augroup END
 set makeprg=make\ -C\ ../build\ -j9
 " bind F4 to compile
 nnoremap <F4> :make!<cr>
+
+" Quick run with <F5>
+nnoremap <F5> :call <SID>compile_and_run()<CR>>
+
+augroup vimAsyncRun
+    autocmd!
+    " Automatically open the quickfix window
+    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15,1)
+augroup END
+
+function! s:compile_and_run()
+    let l:cmd = {
+                \ 'c' : "gcc % -o %<; time ./%<",
+                \ 'sh' : "time bash %",
+                \ 'go' : "go run %",
+                \ 'cpp' : "g++ -std=c++11 % -o %<; time ./%<",
+                \ 'ruby' : "time ruby %",
+                \ 'java' : "javac %; time java %<",
+                \ 'rust' : "rustic % -o %<; time ./%<",
+                \ 'python' : "time python %",
+                \}
+    let l:ft = &filetype
+    if has_key(l:cmd, l:ft)
+        exec 'w'
+        exec "AsyncRun! ".l:cmd[l:ft]
+    else
+        echoerr "AsyncRun not supported in current filetype!"
+    endif
+endfunction
 
 " Full Stack
 au BufNewFile,BufRead *.js, *.html, *.css
