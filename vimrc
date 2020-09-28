@@ -50,9 +50,9 @@ Plug 'honza/vim-snippets'
 Plug 'arcticicestudio/nord-vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jonathanfilip/vim-lucius'
-Plug 'chriskempson/base16-vim'
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'skywind3000/asyncrun.vim'
+Plug 'liuchengxu/space-vim-dark'
 
 call plug#end()
 
@@ -71,20 +71,15 @@ let &t_ZR="\e[23m"
 
 " Colors
 syntax enable
-"set background=dark
+set background=dark
 set t_Co=256
 set termguicolors      " Diable when using tmux
-colorscheme afterglow
-hi Normal guibg=NONE ctermbg=NONE
-"hi GitGutterAdd guifg=#009900 guibg=black ctermbg=black ctermfg=2
-"hi GitGutterChange guifg=#bbbb00 guibg=black ctermbg=black ctermfg=3
-"hi GitGutterDelete guifg=#ff2222 guibg=black ctermbg=black ctermfg=1
+colorscheme space-vim-dark
+hi Normal guibg=#292b2e ctermbg=NONE
+hi Comment gui=italic cterm=italic
 hi GitGutterAdd guibg=NONE ctermbg=NONE
 hi GitGutterChange guibg=NONE ctermbg=NONE
 hi GitGutterDelete guibg=NONE ctermbg=NONE
-"hi Comment guifg=#FFFFFF gui=italic ctermfg=210 cterm=italic
-"hi LineNr guifg=#d1d1d1 ctermfg=244
-hi LineNr guibg=NONE ctermbg=NONE
 hi clear SignColumn
 
 " Misc
@@ -359,16 +354,16 @@ set statusline+=%2*\ %l\:%c\ %4*
 set statusline+=%2*\ %P\ 
 
 " Define colors
-hi User1 ctermbg=NONE ctermfg=white
-hi User2 ctermbg=blue ctermfg=black
-hi User3 ctermbg=green ctermfg=black
-hi User4 ctermbg=NONE ctermfg=white             "ctermbg used to be black
+hi User1 guibg=NONE guifg=#b2b2b2
+hi User2 guibg=#5d4d7a guifg=#b2b2b2
+hi User3 guibg=NONE guifg=#5d4d7a
+hi User4 guibg=#5d4d7a guifg=#b2b2b2
 hi User5 ctermbg=darkcyan ctermfg=black
 
-hi NormalColor guifg=#1a1a1a guibg=#b4c973 
-hi InsertColor guifg=#d6d6d6 guibg=#6c99bb
-hi ReplaceColor guifg=#d6d6d6 guibg=#ac4142
-hi VisualColor guifg=#d6d6d6 guibg=#e87d3e
+hi NormalColor guifg=#262626 guibg=#cd86c7
+hi InsertColor guifg=#262626 guibg=#eead0e
+hi ReplaceColor guifg=#b2b2b2 guibg=#a34455
+hi VisualColor guifg=#b2b2b2 guibg=#2b7e62
 
 " Searching
 set ignorecase          " Ignore case when searching
