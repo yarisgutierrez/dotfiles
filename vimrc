@@ -47,12 +47,10 @@ Plug 'kien/ctrlp.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'
 Plug 'honza/vim-snippets'
-Plug 'arcticicestudio/nord-vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'jonathanfilip/vim-lucius'
-Plug 'danilo-augusto/vim-afterglow'
+Plug 'sainnhe/sonokai'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'liuchengxu/space-vim-dark'
 
 call plug#end()
 
@@ -74,12 +72,15 @@ syntax enable
 set background=dark
 set t_Co=256
 set termguicolors      " Diable when using tmux
-colorscheme space-vim-dark
-hi Normal guibg=#292b2e ctermbg=NONE
-hi Comment gui=italic cterm=italic
-hi GitGutterAdd guibg=NONE ctermbg=NONE
-hi GitGutterChange guibg=NONE ctermbg=NONE
-hi GitGutterDelete guibg=NONE ctermbg=NONE
+let g:sonokai_style = 'andromeda'
+let g:sonokai_disable_italic_comment = 1
+colorscheme sonokai
+"LuciusDarkLowContrast
+"hi Normal guibg=#292b2e ctermbg=NONE
+"hi Comment gui=italic cterm=italic
+"hi GitGutterAdd guibg=NONE ctermbg=NONE
+"hi GitGutterChange guibg=NONE ctermbg=NONE
+"hi GitGutterDelete guibg=NONE ctermbg=NONE
 hi clear SignColumn
 
 " Misc
