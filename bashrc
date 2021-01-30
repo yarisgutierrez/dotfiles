@@ -5,6 +5,7 @@ export LANG=en_US.utf8
 export LC_ALL=en_US.utf8
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
+export TERMINFO=/usr/share/terminfo
 
 
 # If not running interactively, don't do anything
@@ -34,111 +35,135 @@ case "$TERM" in
 esac
 
 
-# PROMPT
-# =======================================
-source ~/.config/.bash_scripts/git-prompt.sh
-
-GIT_PS1_SHOWDIRTYSTATE=true
-
-# +--- Stash State ---+
-# Show currently stashed ($) changes.
-GIT_PS1_SHOWSTASHSTATE=false
-
-# +--- Untracked Files ---+
-# Show untracked (%) changes.
-# Also configurable per repository via "bash.showUntrackedFiles".
-GIT_PS1_SHOWUNTRACKEDFILES=true
-
-# +--- Upstream Difference ---+
-# Show indicator for difference between HEAD and its upstream.
+## PROMPT
+## =======================================
+#source ~/.config/.bash_scripts/git-prompt.sh
 #
-# <  Behind upstream
-# >  Ahead upstream
-# <> Diverged upstream
-# =  Equal upstream
+#GIT_PS1_SHOWDIRTYSTATE=true
 #
-# Control behaviour by setting to a space-separated list of values:
-#   auto     Automatically show indicators
-#   verbose  Show number of commits ahead/behind (+/-) upstream
-#   name     If verbose, then also show the upstream abbrev name
-#   legacy   Do not use the '--count' option available in recent versions of git-rev-list
-#   git      Always compare HEAD to @{upstream}
-#   svn      Always compare HEAD to your SVN upstream
+## +--- Stash State ---+
+## Show currently stashed ($) changes.
+#GIT_PS1_SHOWSTASHSTATE=false
 #
-# By default, __git_ps1 will compare HEAD to SVN upstream ('@{upstream}' if not available).
-# Also configurable per repository via "bash.showUpstream".
-GIT_PS1_SHOWUPSTREAM="auto verbose name"
-
-# +--- Describe Style ---+
-# Show more information about the identity of commits checked out as a detached HEAD.
+## +--- Untracked Files ---+
+## Show untracked (%) changes.
+## Also configurable per repository via "bash.showUntrackedFiles".
+#GIT_PS1_SHOWUNTRACKEDFILES=true
 #
-# Control behaviour by setting to one of these values:
-#   contains  Relative to newer annotated tag (v1.6.3.2~35)
-#   branch    Relative to newer tag or branch (master~4)
-#   describe  Relative to older annotated tag (v1.6.3.1-13-gdd42c2f)
-#   default   Exactly matching tag
-GIT_PS1_DESCRIBE_STYLE="contains"
+## +--- Upstream Difference ---+
+## Show indicator for difference between HEAD and its upstream.
+##
+## <  Behind upstream
+## >  Ahead upstream
+## <> Diverged upstream
+## =  Equal upstream
+##
+## Control behaviour by setting to a space-separated list of values:
+##   auto     Automatically show indicators
+##   verbose  Show number of commits ahead/behind (+/-) upstream
+##   name     If verbose, then also show the upstream abbrev name
+##   legacy   Do not use the '--count' option available in recent versions of git-rev-list
+##   git      Always compare HEAD to @{upstream}
+##   svn      Always compare HEAD to your SVN upstream
+##
+## By default, __git_ps1 will compare HEAD to SVN upstream ('@{upstream}' if not available).
+## Also configurable per repository via "bash.showUpstream".
+#GIT_PS1_SHOWUPSTREAM="auto verbose name"
+#
+## +--- Describe Style ---+
+## Show more information about the identity of commits checked out as a detached HEAD.
+##
+## Control behaviour by setting to one of these values:
+##   contains  Relative to newer annotated tag (v1.6.3.2~35)
+##   branch    Relative to newer tag or branch (master~4)
+##   describe  Relative to older annotated tag (v1.6.3.1-13-gdd42c2f)
+##   default   Exactly matching tag
+#GIT_PS1_DESCRIBE_STYLE="contains"
+#
+## +--- Colored Hints ---+
+## Show colored hints about the current dirty state. The colors are based on the colored output of "git status -sb".
+## NOTE: Only available when using __git_ps1 for PROMPT_COMMAND!
+#GIT_PS1_SHOWCOLORHINTS=true
+#
+## +--- pwd Ignore ---+
+## Disable __git_ps1 output when the current directory is set up to be ignored by git.
+## Also configurable per repository via "bash.hideIfPwdIgnored".
+#GIT_PS1_HIDE_IF_PWD_IGNORED=false
+#
+#compile_prompt () {
+#  local EXIT=$?
+#  local CONNECTBAR_DOWN=$'\u250C\u2500\u257C'
+#  local CONNECTBAR_UP=$'\u2514\u2500\u257C'
+#  #local CONNECTBAR_UP=$'\u2514\u2500'
+#  local GITSPLITBAR=$'\u2570\u257C'
+#  local SPLITBAR=$'\u257E\u2500\u257C'
+#  local SPLITBAR2=$'\u257E\u2500\u257C'
+#  local ARROW=$'\u25B6'
+#  local c_green='\e[0;32m'
+#  local c_gray='\e[0;37m'
+#  local c_blue='\e[0;34m'
+#  local c_cyan='\e[0;36m'
+#  local c_magenta='\e[0;35m'
+#  local c_reset='\e[0m'
+#
+#  # > Connectbar Down
+#  # Format:
+#  #   (newline)(bright colors)(connectbar down)
+#  PS1="\n${c_gray}"
+#  PS1+="$CONNECTBAR_DOWN"
+#
+#  # > Username
+#  # Format:
+#  #   (bracket open)(username)(bracket close)(splitbar)
+#  PS1+="[${c_green}\u${c_gray}]"
+#  PS1+="$SPLITBAR"
+#
+#  # > Working Directory
+#  # Format:
+#  #   (bracket open)(working directory)(bracket close)(newline)
+#  PS1+="[${c_blue}\w${c_gray}]"
+#
+#  # > Git
+#  # Format:
+#  #   (gitsplitbar)(bracket open)(git branch)(bracket close)(splitbar)
+#  #   (bracket open)(HEAD-SHA)(bracket close)
+#  PS1+="$(__git_ps1 "$SPLITBAR[${c_magenta}%s${c_gray}]\\u257E\\u2500\\u257C[${c_cyan}$(git rev-parse --short HEAD 2> /dev/null)${c_gray}]")"
+#  # Append additional newline if in git repository
+#  #if [[ ! -z $(__git_ps1) ]]; then
+#  #  PS1+='\n'
+#  #fi
+#
+#  #PS1+="$ARROW \[\e[0m\]"
+#  PS1+="\n$CONNECTBAR_UP $ \[\e[0m\]"
+#}
+#
+#PROMPT_COMMAND='compile_prompt'
+## =============================================
 
-# +--- Colored Hints ---+
-# Show colored hints about the current dirty state. The colors are based on the colored output of "git status -sb".
-# NOTE: Only available when using __git_ps1 for PROMPT_COMMAND!
-GIT_PS1_SHOWCOLORHINTS=true
+# Colors
+black="\[$(tput setaf 0)\]"
+red="\[$(tput setaf 1)\]"
+green="\[$(tput setaf 2)\]"
+yellow="\[$(tput setaf 3)\]"
+blue="\[$(tput setaf 4)\]"
+magenta="\[$(tput setaf 5)\]"
+cyan="\[$(tput setaf 6)\]"
+white="\[$(tput setaf 7)\]"
 
-# +--- pwd Ignore ---+
-# Disable __git_ps1 output when the current directory is set up to be ignored by git.
-# Also configurable per repository via "bash.hideIfPwdIgnored".
-GIT_PS1_HIDE_IF_PWD_IGNORED=false
+# Title bar - "user@host: ~"
+title="\u@\h: \w"
+titlebar="\[\033]0;"$title"\007\]"
 
-compile_prompt () {
-  local EXIT=$?
-  local CONNECTBAR_DOWN=$'\u250C\u2500\u257C'
-  local CONNECTBAR_UP=$'\u2514\u2500\u257C'
-  #local CONNECTBAR_UP=$'\u2514\u2500'
-  local GITSPLITBAR=$'\u2570\u257C'
-  local SPLITBAR=$'\u257E\u2500\u257C'
-  local SPLITBAR2=$'\u257E\u2500\u257C'
-  local ARROW=$'\u25B6'
-  local c_green='\e[0;32m'
-  local c_gray='\e[0;37m'
-  local c_blue='\e[0;34m'
-  local c_cyan='\e[0;36m'
-  local c_magenta='\e[0;35m'
-  local c_reset='\e[0m'
-
-  # > Connectbar Down
-  # Format:
-  #   (newline)(bright colors)(connectbar down)
-  PS1="\n${c_gray}"
-  PS1+="$CONNECTBAR_DOWN"
-
-  # > Username
-  # Format:
-  #   (bracket open)(username)(bracket close)(splitbar)
-  PS1+="[${c_green}\u${c_gray}]"
-  PS1+="$SPLITBAR"
-
-  # > Working Directory
-  # Format:
-  #   (bracket open)(working directory)(bracket close)(newline)
-  PS1+="[${c_blue}\w${c_gray}]"
-
-  # > Git
-  # Format:
-  #   (gitsplitbar)(bracket open)(git branch)(bracket close)(splitbar)
-  #   (bracket open)(HEAD-SHA)(bracket close)
-  PS1+="$(__git_ps1 "$SPLITBAR[${c_magenta}%s${c_gray}]\\u257E\\u2500\\u257C[${c_cyan}$(git rev-parse --short HEAD 2> /dev/null)${c_gray}]")"
-  # Append additional newline if in git repository
-  #if [[ ! -z $(__git_ps1) ]]; then
-  #  PS1+='\n'
-  #fi
-
-  #PS1+="$ARROW \[\e[0m\]"
-  PS1+="\n$CONNECTBAR_UP $ \[\e[0m\]"
+# Git branch
+git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)\ /';
 }
 
-PROMPT_COMMAND='compile_prompt'
-# =============================================
+# Clear attributes
+clear_attributes="\[$(tput sgr0)\]"
 
+# Custom bash prompt - "➜  ~ (master) "
+export PS1="${titlebar}${green}➜  ${blue}\W ${cyan}\$(git_branch)${clear_attributes}"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -152,13 +177,19 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 LS_COLORS=$LS_COLORS:'di=0;36' ; export LS_COLORS
 
 # Aliases
+#alias python="python3"
 alias virtualenv3='python3 -m venv'
 alias r2d2='ssh protocol@192.168.1.234'
 alias ubuntu_main='ssh protocol@192.168.1.237'
 alias checkJournal="sudo journalctl --follow"
-alias mount_bigid="sudo mount.cifs //BIGID-YG/Downloads /home/protocol/bigIDShare/ -o user=Yaris"
+alias editplex="sudo vim /etc/systemd/system/multi-user.target.wants/plexmediaserver.service"
+alias changeplexperms="sudo chown -R protocol:protocol /var/lib/plexmediaserver"
+alias restartplex="sudo systemctl --system daemon-reload && sudo service plexmediaserver restart"
+alias mountStorageMain="udisksctl mount -b /dev/sdd1"
+alias mountStorageSecondary="udisksctl mount -b /dev/sdc2"
 alias cpu='ps aux | sort -k 3,3 | tail'
-alias mem='ps aux | sort -k 4,4 | tail:w'
+alias editsound='sudo vim /usr/share/pulseaudio/alsa-mixer/profile-sets/default.conf'
+#alias mem='ps aux | sort -k 4,4 | tail'
 alias grep='grep --color=always'
 
 # Alias definitions.
@@ -206,6 +237,9 @@ function extract () {
     fi
 }
 
+function mem(){
+    ps -eo rss,pid,euser,args:100 --sort %mem | grep -v grep | grep -i $@ | awk '{printf $1/1024 "MB"; $1=""; print }'
+}
 
 function psgrep() {
     if [ ! -z $1 ] ; then

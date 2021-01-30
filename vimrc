@@ -45,39 +45,44 @@ Plug 'sheerun/vim-polyglot'
 Plug 'davidhalter/jedi'
 Plug 'kien/ctrlp.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fatih/vim-go'
 Plug 'lervag/vimtex'
 Plug 'honza/vim-snippets'
-Plug 'arcticicestudio/nord-vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-Plug 'gruvbox-community/gruvbox'
+Plug 'ajmwagar/vim-deus'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'ParamagicDev/vim-medic_chalk'
+Plug 'arzg/vim-colors-xcode'
 
 call plug#end()
 
 filetype plugin indent on
 
-" tmux
-if exists('$TMUX')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
 """ Appearance
 " Italics
-let &t_ZH="\e[3m"
-let &t_ZR="\e[23m"
-
-" Colors
-syntax enable
-set background=dark
 set t_Co=256
 set termguicolors      " Diable when using tmux
-let g:gruvbox_contrast_dark="hard"
-colorscheme gruvbox
-hi ColorColumn guibg=#3c3836
-hi SignColumn guibg=#1d1d1d
-hi GitGutterAdd guibg=#1d1d1d guifg=#98971a
-hi GitGutterChange guibg=#1d1d1d guifg=#689d6a
-hi GitGutterDelete guibg=#1d1d1d guifg=#cc241d
+
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+" Colors
+set background=dark
+let python_highlighting_all=1
+let g:xcodedarkhc_green_comments = 1
+colorscheme deus
+syntax enable
+"hi Comment guifg=#cc5c70 gui=italic ctermfg=red cterm=italic
+"hi SignColumn guibg=black ctermbg=black
+"hi GitGutterAdd guibg=black ctermbg=black
+"hi GitGutterChange guibg=black ctermbg=black
+"hi GitGutterDelete guibg=black ctermbg=black
+"hi GitGutterChangeDelete guibg=black ctermbg=black
+"hi LineNr guifg=gray guibg=black ctermfg=gray ctermbg=black
+hi clear SignColumn
+
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
 
 " Misc
 set updatetime=250
@@ -243,6 +248,7 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
+
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -361,7 +367,7 @@ function! StatusDiagnostic() abort
     return join(msgs, ' '). ' ' . get(g:, 'coc_status', '')
 endfunction
 
-set laststatus=2                " Set to 2 to enable. Disabled by default
+"set laststatus=2                " Set to 2 to enable. Disabled by default
 set statusline=
 set statusline+=\ %{StatuslineMode()}\ 
 set statusline+=%4*\ [%n]\%4*
@@ -375,10 +381,10 @@ set statusline+=%2*\ %l\:%c\ %4*
 set statusline+=%2*\ %P\ 
 
 " Define colors
-hi User1 ctermbg=white ctermfg=black
-hi User2 ctermbg=blue ctermfg=black
+hi User1 ctermbg=NONE ctermfg=lightgray
+hi User2 ctermbg=blue ctermfg=white
 hi User3 ctermbg=green ctermfg=black
-hi User4 ctermbg=black ctermfg=white
+hi User4 ctermbg=NONE ctermfg=lightgray
 hi User5 ctermbg=darkcyan ctermfg=black
 
 
@@ -401,6 +407,18 @@ nnoremap <leader>ev :tabedit $MYVIMRC<CR>
 nnoremap <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader><space> :noh<CR>
+
+" open file under cursor in new tab
+map <F2> <Esc><C-W>gF<CR>:tabm<CR>>
+
+" Base 64 decode word under cursor
+nmap <leader>b :!echo <C-R><C-W> \| base64 -d<CR>
+
+" sort the buffer removing duplicates
+nmap <leader>s :%!sort -u --version-sort<CR>>
+
+" grep recursively for word under cursor
+nmap <leader>g :tabnew\|read !grep -Hnr '<C-R><C-W>'<CR>
 
 " Switch Tabs
 nnoremap <C-Left> :tabprevious<CR>
@@ -493,8 +511,6 @@ au FileType python set tabstop=4
 au FileType python set softtabstop=4
 au FileType python set shiftround
 au FileType python set autoindent
-au FileType python set colorcolumn=79
-au FileType python highlight ColorColumn ctermbg=grey guibg=lightgrey
 au FileType python syn keyword pythonDecorator True None false self
 let python_highlight_all=1
 
@@ -506,7 +522,7 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 
 " C
-augroup projec"t
+augroup project
     autocmd!
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
 augroup END
