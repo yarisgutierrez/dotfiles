@@ -31,7 +31,7 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 " Active Plugins
-Plug 'vim-scripts/indentpython.vim'       " 
+Plug 'vim-scripts/indentpython.vim'       
 Plug 'tmhedberg/SimpylFold'               " Code folding
 Plug 'scrooloose/nerdtree'                " Better file browser
 Plug 'tpope/vim-fugitive'                 " Git integration
@@ -51,8 +51,13 @@ Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'ajmwagar/vim-deus'
 Plug 'jonathanfilip/vim-lucius'
+<<<<<<< HEAD
 Plug 'ParamagicDev/vim-medic_chalk'
 Plug 'arzg/vim-colors-xcode'
+=======
+Plug 'sainnhe/sonokai'
+Plug 'skywind3000/asyncrun.vim'
+>>>>>>> 6ab48e239a86d78a92e12d76645d674b535c545e
 
 call plug#end()
 
@@ -68,6 +73,7 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " Colors
 set background=dark
+<<<<<<< HEAD
 let python_highlighting_all=1
 let g:xcodedarkhc_green_comments = 1
 colorscheme deus
@@ -83,6 +89,20 @@ hi clear SignColumn
 
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
+=======
+set t_Co=256
+set termguicolors      " Diable when using tmux
+let g:sonokai_style = 'andromeda'
+let g:sonokai_disable_italic_comment = 1
+colorscheme sonokai
+"LuciusDarkLowContrast
+"hi Normal guibg=#292b2e ctermbg=NONE
+"hi Comment gui=italic cterm=italic
+"hi GitGutterAdd guibg=NONE ctermbg=NONE
+"hi GitGutterChange guibg=NONE ctermbg=NONE
+"hi GitGutterDelete guibg=NONE ctermbg=NONE
+hi clear SignColumn
+>>>>>>> 6ab48e239a86d78a92e12d76645d674b535c545e
 
 " Misc
 set updatetime=250
@@ -95,6 +115,7 @@ set clipboard=unnamed
 
 " Flag unnecessary whitespace
 hi BadWhitespace ctermbg=Red guibg=DarkRed
+
 
 " Move between splits
 noremap <C-h> <C-w><Left>
@@ -193,7 +214,6 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
-
 
 " Use tab for trigger completion with chracters ahead and navigate
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin
@@ -307,34 +327,7 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 """ END COC SETTINGS
 
-
 """ Statusline
-" Custom status line status to avoid using plugin(s)
-function! StatuslineMode()
-    let l:mode=mode()
-    if l:mode==#"n"
-        exe 'hi! StatusLine ctermfg=blue ctermbg=white'
-        return "NORMAL"
-    elseif l:mode==?"v"
-        exe 'hi! StatusLine ctermfg=yellow ctermbg=black'
-        return "VISUAL"
-    elseif l:mode==#"i"
-        exe 'hi! StatusLine ctermfg=green ctermbg=black'
-        return "INSERT"
-    elseif l:mode==#"R"
-        exe 'hi! StatusLine ctermfg=red ctermbg=white'
-        return "REPLACE"
-    elseif l:mode==?"s"
-        return "SELECT"
-    elseif l:mode==#"t"
-        return "TERMINAL"
-    elseif l:mode==#"c"
-        return "COMMAND"
-    elseif l:mode==#"!"
-        return "SHELL"
-    endif
-endfunction
-
 " Git repo/status
 function! StatuslineGitBranch()
     let b:gitbranch=""
@@ -369,7 +362,10 @@ endfunction
 
 "set laststatus=2                " Set to 2 to enable. Disabled by default
 set statusline=
-set statusline+=\ %{StatuslineMode()}\ 
+set statusline+=%#NormalColor#%{(mode()=='n')?'\ \ N\ ':''}
+set statusline+=%#InsertColor#%{(mode()=='i')?'\ \ I\ ':''}
+set statusline+=%#ReplaceColor#%{(mode()=='R')?'\ \ R\ ':''}
+set statusline+=%#VisualColor#%{(mode()=='v')?'\ \ V\ ':''}
 set statusline+=%4*\ [%n]\%4*
 set statusline+=%4*\ %{b:gitbranch}
 set statusline+=%1*\ %F\ %4*
@@ -381,12 +377,23 @@ set statusline+=%2*\ %l\:%c\ %4*
 set statusline+=%2*\ %P\ 
 
 " Define colors
+<<<<<<< HEAD
 hi User1 ctermbg=NONE ctermfg=lightgray
 hi User2 ctermbg=blue ctermfg=white
 hi User3 ctermbg=green ctermfg=black
 hi User4 ctermbg=NONE ctermfg=lightgray
+=======
+hi User1 guibg=NONE guifg=#b2b2b2
+hi User2 guibg=#5d4d7a guifg=#b2b2b2
+hi User3 guibg=NONE guifg=#5d4d7a
+hi User4 guibg=#5d4d7a guifg=#b2b2b2
+>>>>>>> 6ab48e239a86d78a92e12d76645d674b535c545e
 hi User5 ctermbg=darkcyan ctermfg=black
 
+hi NormalColor guifg=#262626 guibg=#cd86c7
+hi InsertColor guifg=#262626 guibg=#eead0e
+hi ReplaceColor guifg=#b2b2b2 guibg=#a34455
+hi VisualColor guifg=#b2b2b2 guibg=#2b7e62
 
 " Searching
 set ignorecase          " Ignore case when searching
@@ -429,7 +436,6 @@ let NERDTreeIgnore = ['\.pyc$', 'build', 'venv', 'egg', 'egg-info/', 'dist', 'do
 nmap <F6> :NERDTreeToggle<CR>
 nmap <F7> :NERDTreeFind<CR>
 nmap <F8> :TagbarToggle<CR>
-
 
 " AutoGroups
 augroup configgroup
@@ -511,6 +517,11 @@ au FileType python set tabstop=4
 au FileType python set softtabstop=4
 au FileType python set shiftround
 au FileType python set autoindent
+<<<<<<< HEAD
+=======
+"au FileType python set colorcolumn=79
+"au FileType python highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
+>>>>>>> 6ab48e239a86d78a92e12d76645d674b535c545e
 au FileType python syn keyword pythonDecorator True None false self
 let python_highlight_all=1
 
@@ -519,7 +530,6 @@ au BufNewFile,Bufread *.md set filetype=markdown
 au FileType markdown setlocal spell
 au FileType markdown set spelllang=en_us
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-
 
 " C
 augroup project
@@ -530,6 +540,35 @@ augroup END
 set makeprg=make\ -C\ ../build\ -j9
 " bind F4 to compile
 nnoremap <F4> :make!<cr>
+
+" Quick run with <F5>
+nnoremap <F5> :call <SID>compile_and_run()<CR>>
+
+augroup vimAsyncRun
+    autocmd!
+    " Automatically open the quickfix window
+    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15,1)
+augroup END
+
+function! s:compile_and_run()
+    let l:cmd = {
+                \ 'c' : "gcc % -o %<; time ./%<",
+                \ 'sh' : "time bash %",
+                \ 'go' : "go run %",
+                \ 'cpp' : "g++ -std=c++11 % -o %<; time ./%<",
+                \ 'ruby' : "time ruby %",
+                \ 'java' : "javac %; time java %<",
+                \ 'rust' : "rustic % -o %<; time ./%<",
+                \ 'python' : "time python %",
+                \}
+    let l:ft = &filetype
+    if has_key(l:cmd, l:ft)
+        exec 'w'
+        exec "AsyncRun! ".l:cmd[l:ft]
+    else
+        echoerr "AsyncRun not supported in current filetype!"
+    endif
+endfunction
 
 " Full Stack
 au BufNewFile,BufRead *.js, *.html, *.css
