@@ -51,13 +51,10 @@ Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'ajmwagar/vim-deus'
 Plug 'jonathanfilip/vim-lucius'
-<<<<<<< HEAD
 Plug 'ParamagicDev/vim-medic_chalk'
 Plug 'arzg/vim-colors-xcode'
-=======
 Plug 'sainnhe/sonokai'
 Plug 'skywind3000/asyncrun.vim'
->>>>>>> 6ab48e239a86d78a92e12d76645d674b535c545e
 
 call plug#end()
 
@@ -70,12 +67,14 @@ set termguicolors      " Diable when using tmux
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
 
 " Colors
 set background=dark
-<<<<<<< HEAD
 let python_highlighting_all=1
 let g:xcodedarkhc_green_comments = 1
+set t_Co=256
 colorscheme deus
 syntax enable
 "hi Comment guifg=#cc5c70 gui=italic ctermfg=red cterm=italic
@@ -87,22 +86,6 @@ syntax enable
 "hi LineNr guifg=gray guibg=black ctermfg=gray ctermbg=black
 hi clear SignColumn
 
-let &t_ZH="\e[3m"
-let &t_ZR="\e[23m"
-=======
-set t_Co=256
-set termguicolors      " Diable when using tmux
-let g:sonokai_style = 'andromeda'
-let g:sonokai_disable_italic_comment = 1
-colorscheme sonokai
-"LuciusDarkLowContrast
-"hi Normal guibg=#292b2e ctermbg=NONE
-"hi Comment gui=italic cterm=italic
-"hi GitGutterAdd guibg=NONE ctermbg=NONE
-"hi GitGutterChange guibg=NONE ctermbg=NONE
-"hi GitGutterDelete guibg=NONE ctermbg=NONE
-hi clear SignColumn
->>>>>>> 6ab48e239a86d78a92e12d76645d674b535c545e
 
 " Misc
 set updatetime=250
@@ -377,17 +360,14 @@ set statusline+=%2*\ %l\:%c\ %4*
 set statusline+=%2*\ %P\ 
 
 " Define colors
-<<<<<<< HEAD
 hi User1 ctermbg=NONE ctermfg=lightgray
 hi User2 ctermbg=blue ctermfg=white
 hi User3 ctermbg=green ctermfg=black
 hi User4 ctermbg=NONE ctermfg=lightgray
-=======
 hi User1 guibg=NONE guifg=#b2b2b2
 hi User2 guibg=#5d4d7a guifg=#b2b2b2
 hi User3 guibg=NONE guifg=#5d4d7a
 hi User4 guibg=#5d4d7a guifg=#b2b2b2
->>>>>>> 6ab48e239a86d78a92e12d76645d674b535c545e
 hi User5 ctermbg=darkcyan ctermfg=black
 
 hi NormalColor guifg=#262626 guibg=#cd86c7
@@ -517,11 +497,8 @@ au FileType python set tabstop=4
 au FileType python set softtabstop=4
 au FileType python set shiftround
 au FileType python set autoindent
-<<<<<<< HEAD
-=======
 "au FileType python set colorcolumn=79
 "au FileType python highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
->>>>>>> 6ab48e239a86d78a92e12d76645d674b535c545e
 au FileType python syn keyword pythonDecorator True None false self
 let python_highlight_all=1
 
