@@ -52,4 +52,5 @@ packer.startup(function(use)
   use 'pineapplegiant/spaceduck'
   use 'lewis6991/gitsigns.nvim'
   use 'norcalli/nvim-colorizer.lua'
+  use 'xiyaowong/nvim-transparent'
 end)

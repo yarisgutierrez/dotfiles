@@ -1,4 +1,9 @@
 vim.cmd('autocmd!')
+
+require('transparent').setup({
+  enable = true
+})
+
 vim.cmd('colorscheme alabaster')
 
 vim.scriptencoding = 'utf-8'
