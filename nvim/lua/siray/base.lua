@@ -1,10 +1,12 @@
 vim.cmd('autocmd!')
 
-require('transparent').setup({
-  enable = true
+--vim.cmd('colorscheme decay')
+require('decay').setup({
+  style = 'dark',
+  nvim_tree = {
+    contrast = true
+  }
 })
-
-vim.cmd('colorscheme alabaster')
 
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'

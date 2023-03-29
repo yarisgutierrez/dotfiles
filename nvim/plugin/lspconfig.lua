@@ -71,7 +71,7 @@ nvim_lsp.tsserver.setup {
 nvim_lsp.pyright.setup{}
 nvim_lsp.clangd.setup{}
 
-nvim_lsp.sumneko_lua.setup {
+nvim_lsp.lua_ls.setup {
   on_attach = on_attach,
   settings = {
     Lua = {

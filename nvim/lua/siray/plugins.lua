@@ -20,12 +20,7 @@ packer.startup(function(use)
   }
   use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code secions, and more via Lua
   use 'MunifTanjim/prettier.nvim'
-  use 'p00f/alabaster.nvim'
-  use({
-    'L3MON4D3/LuaSnip',
-    tag = "v<CurrentMajor>.*",
-    run = "make install_jsregexp"
-  })
+  use 'L3MON4D3/LuaSnip'
 
   use({
     'glepnir/lspsaga.nvim',
@@ -49,8 +44,7 @@ packer.startup(function(use)
   use 'akinsho/git-conflict.nvim'
   use 'sindrets/diffview.nvim'
   use 'lukas-reineke/indent-blankline.nvim'
-  use 'pineapplegiant/spaceduck'
   use 'lewis6991/gitsigns.nvim'
   use 'norcalli/nvim-colorizer.lua'
-  use 'xiyaowong/nvim-transparent'
+  use {'decaycs/decay.nvim', as = 'decay'}
 end)
