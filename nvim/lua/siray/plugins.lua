@@ -3,6 +3,8 @@ if (not status) then
   print("Packer is not installed")
   return
 end
+isomething = 0
+
 
 vim.cmd [[packadd packer.nvim]]
 
@@ -47,4 +49,5 @@ packer.startup(function(use)
   use 'lewis6991/gitsigns.nvim'
   use 'norcalli/nvim-colorizer.lua'
   use {'decaycs/decay.nvim', as = 'decay'}
+  use 'xiyaowong/transparent.nvim'
 end)

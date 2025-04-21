@@ -12,6 +12,8 @@ local no_errors, error_msg = pcall(function()
 _G._packer = _G._packer or {}
 _G._packer.inside_compile = true
 
+-- Adding something new
+
 local time
 local profile_info
 local should_profile = false
